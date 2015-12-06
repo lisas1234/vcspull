@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Vcspull by lisas1234</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Vcspull</h1>
+      <h2 class="project-tagline">:arrow_down_small: mass update git, hg and svn repos simultaneously from YAML / JSON file.</h2>
+      <a href="https://github.com/lisas1234/vcspull" class="btn">View on GitHub</a>
+      <a href="https://github.com/lisas1234/vcspull/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/lisas1234/vcspull/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p><code>vcspull</code> - manage your git, mercurial and svn repositories via CLI.
+Configure via JSON / YAML config files.</p>
+
+<p>|pypi| |docs| |build-status| |coverage| |license|</p>
+
+<p>.. image:: <a href="https://raw.github.com/tony/vcspull/master/doc/_static/vcspull-demo.gif">https://raw.github.com/tony/vcspull/master/doc/_static/vcspull-demo.gif</a>
+    :scale: 100%
+    :width: 45%
+    :align: center</p>
+
+<p>Above: Run <code>svn update</code>, <code>git pull</code>, <code>hg pull &amp;&amp; hg update</code> en masse. </p>
+
+<p>Sync multiple git, mercurial and subversion repositories via a YAML /
+JSON file.</p>
+
+<ul>
+<li>supports svn, git, hg version control systems</li>
+<li>automatically checkout fresh repositories</li>
+<li>update to the latest repos with <code>$ vcspull</code>
+</li>
+<li>
+<code>Documentation</code><em>, <code>API</code></em> and <code>Examples</code>_.</li>
+<li>builds upon <code>pip</code><em>'s <code>RFC3986</code></em>-based <code>url scheme</code>_.</li>
+</ul>
+
+<p>See the <code>Quickstart</code>_ to jump in. Or see an <code>example .vcspull.yaml</code>_.</p>
+
+<h2>
+<a id="command-line-usage" class="anchor" href="#command-line-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Command line Usage</h2>
+
+<p>Create a <code>.vcspull.yaml</code>:</p>
+
+<p>.. code-block:: yaml</p>
+
+<pre><code>~/code/:
+    "flask": "git+https://github.com/mitsuhiko/flask.git"
+</code></pre>
+
+<p>Clone and update your repositories at any time:</p>
+
+<p>.. code-block:: bash</p>
+
+<pre><code>$ vcspull
+</code></pre>
+
+<p>Have a lot of projects? Use arguments to clone / update what you need.</p>
+
+<p>.. code-block:: bash</p>
+
+<pre><code>$ vcspull flask
+</code></pre>
+
+<p>Use <code>fnmatch</code>_:</p>
+
+<p>.. code-block:: bash</p>
+
+<pre><code># any repo starting with "fla"
+$ vcspull "fla*"
+
+# inside of a directory with "co" anywhere, on github.
+$ vcspull -d "*co*" -r "*github.com*" "fla*"
+</code></pre>
+
+<h2>
+<a id="python-api-usage" class="anchor" href="#python-api-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python API Usage</h2>
+
+<p>.. code-block:: python</p>
+
+<p>In [1]: from vcspull.repo import Repo</p>
+
+<p>In [2]: r = Repo(url='git+<a href="https://www.github.com/tony/vim-config">https://www.github.com/tony/vim-config</a>', cwd='/tmp/',
+            name='vim-config')</p>
+
+<p>In [3]: r.update_repo()
+   |vim-config| (git)  Repo directory for vim-config (git) does not exist @ /tmp/vim-config
+   |vim-config| (git)  Cloning.
+   |vim-config| (git)  git clone --progress <a href="https://www.github.com/tony/vim-config">https://www.github.com/tony/vim-config</a> /tmp/vim-config
+   Cloning into '/tmp/vim-config'...
+   Checking connectivity... done.
+   |vim-config| (git)  git fetch
+   |vim-config| (git)  git pull
+   Already up-to-date.</p>
+
+<p>.. _RFC3986: <a href="http://tools.ietf.org/html/rfc3986.html">http://tools.ietf.org/html/rfc3986.html</a>
+.. _example .vcspull.yaml: <a href="https://github.com/tony/.dot-config/blob/master/.vcspull.yaml">https://github.com/tony/.dot-config/blob/master/.vcspull.yaml</a>
+.. _fnmatch: <a href="http://pubs.opengroup.org/onlinepubs/009695399/functions/fnmatch.html">http://pubs.opengroup.org/onlinepubs/009695399/functions/fnmatch.html</a></p>
+
+<h2>
+<a id="more-information-" class="anchor" href="#more-information-" aria-hidden="true"><span class="octicon octicon-link"></span></a>More information </h2>
+
+<p>==============  ==========================================================
+Python support  Python 2.7, &gt;= 3.3
+VCS supported   git(1), svn(1), hg(1)
+Config formats  YAML, JSON, python dict
+Source          <a href="https://github.com/tony/vcspull">https://github.com/tony/vcspull</a>
+Docs            <a href="http://vcspull.rtfd.org">http://vcspull.rtfd.org</a>
+Changelog       <a href="http://vcspull.readthedocs.org/en/latest/history.html">http://vcspull.readthedocs.org/en/latest/history.html</a>
+API             <a href="http://vcspull.readthedocs.org/en/latest/api.html">http://vcspull.readthedocs.org/en/latest/api.html</a>
+Issues          <a href="https://github.com/tony/vcspull/issues">https://github.com/tony/vcspull/issues</a>
+Travis          <a href="http://travis-ci.org/tony/vcspull">http://travis-ci.org/tony/vcspull</a>
+Test Coverage   <a href="https://coveralls.io/r/tony/vcspull">https://coveralls.io/r/tony/vcspull</a>
+pypi            <a href="https://pypi.python.org/pypi/vcspull">https://pypi.python.org/pypi/vcspull</a>
+Open Hub        <a href="https://www.openhub.net/p/vcspull">https://www.openhub.net/p/vcspull</a>
+License         <code>BSD</code>_.
+git repo        .. code-block:: bash</p>
+
+<pre><code>                $ git clone https://github.com/tony/vcspull.git
+</code></pre>
+
+<p>install dev     .. code-block:: bash</p>
+
+<pre><code>                $ git clone https://github.com/tony/vcspull.git vcspull
+                $ cd ./vcspull
+                $ virtualenv .env
+                $ source .env/bin/activate
+                $ pip install -e .
+</code></pre>
+
+<p>tests           .. code-block:: bash</p>
+
+<pre><code>                $ python ./run-tests.py
+</code></pre>
+
+<p>run             .. code-block:: bash</p>
+
+<pre><code>                $ vcspull
+</code></pre>
+
+<p>==============  ==========================================================</p>
+
+<p>.. _BSD: <a href="http://opensource.org/licenses/BSD-3-Clause">http://opensource.org/licenses/BSD-3-Clause</a>
+.. _Documentation: <a href="http://vcspull.readthedocs.org/en/latest/">http://vcspull.readthedocs.org/en/latest/</a>
+.. _API: <a href="http://vcspull.readthedocs.org/en/latest/api.html">http://vcspull.readthedocs.org/en/latest/api.html</a>
+.. _Examples: <a href="http://vcspull.readthedocs.org/en/latest/examples.html">http://vcspull.readthedocs.org/en/latest/examples.html</a>
+.. _Quickstart: <a href="http://vcspull.readthedocs.org/en/latest/quickstart.html">http://vcspull.readthedocs.org/en/latest/quickstart.html</a>
+.. _pip: <a href="http://www.pip-installer.org/en/latest/">http://www.pip-installer.org/en/latest/</a>
+.. _url scheme: <a href="http://www.pip-installer.org/en/latest/logic.html#vcs-support">http://www.pip-installer.org/en/latest/logic.html#vcs-support</a>
+.. _saltstack: <a href="http://www.saltstack.org">http://www.saltstack.org</a></p>
+
+<p>.. |pypi| image:: <a href="https://img.shields.io/pypi/v/vcspull.svg">https://img.shields.io/pypi/v/vcspull.svg</a>
+    :alt: Python Package
+    :target: <a href="http://badge.fury.io/py/vcspull">http://badge.fury.io/py/vcspull</a></p>
+
+<p>.. |build-status| image:: <a href="https://img.shields.io/travis/tony/vcspull.svg">https://img.shields.io/travis/tony/vcspull.svg</a>
+   :alt: Build Status
+   :target: <a href="https://travis-ci.org/tony/vcspull">https://travis-ci.org/tony/vcspull</a></p>
+
+<p>.. |coverage| image:: <a href="https://img.shields.io/coveralls/tony/vcspull.svg">https://img.shields.io/coveralls/tony/vcspull.svg</a>
+    :alt: Code Coverage
+    :target: <a href="https://coveralls.io/r/tony/vcspull?branch=master">https://coveralls.io/r/tony/vcspull?branch=master</a></p>
+
+<p>.. |license| image:: <a href="https://img.shields.io/github/license/tony/vcspull.svg">https://img.shields.io/github/license/tony/vcspull.svg</a>
+    :alt: License </p>
+
+<p>.. |docs| image:: <a href="https://readthedocs.org/projects/vcspull/badge/?version=latest">https://readthedocs.org/projects/vcspull/badge/?version=latest</a>
+    :alt: Documentation Status
+    :scale: 100%
+    :target: <a href="https://readthedocs.org/projects/vcspull/">https://readthedocs.org/projects/vcspull/</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/lisas1234/vcspull">Vcspull</a> is maintained by <a href="https://github.com/lisas1234">lisas1234</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
